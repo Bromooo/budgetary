@@ -57,11 +57,16 @@
           >
             <input
               v-model="form.password"
-              type="password"
+              :type="open ? 'text' : 'password'"
               class="w-full"
               placeholder="Password"
             />
-            <img src="@/assets/icons/png/eye-open.png" alt="" />
+            <img
+              src="@/assets/icons/png/eye-open.png"
+              @click="open = !open"
+              class="cursor-pointer"
+              alt=""
+            />
           </div>
         </div>
 
@@ -79,6 +84,7 @@ export default {
   components: { BaseButton },
   data() {
     return {
+      open: false,
       loading: false,
       form: {
         email: "",

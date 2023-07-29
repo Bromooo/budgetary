@@ -89,12 +89,17 @@
           "
         >
           <input
-            type="password"
+            :type="open ? 'text' : 'password'"
             class="w-full"
             v-model="form.password"
             placeholder="Password"
           />
-          <img src="@/assets/icons/png/eye-open.png" alt="" />
+          <img
+            src="@/assets/icons/png/eye-open.png"
+            @click="open = !open"
+            class="cursor-pointer"
+            alt=""
+          />
         </div>
       </div>
       <div class="w-full">
@@ -122,12 +127,18 @@
           "
         >
           <input
-            type="password"
+            :type="openc ? 'text' : 'password'"
             class="w-full"
             v-model="form.confirmPassword"
             placeholder="Confirm Password"
           />
-          <img src="@/assets/icons/png/eye-open.png" alt="" />
+
+          <img
+            @click="openc = !openc"
+            class="cursor-pointer"
+            src="@/assets/icons/png/eye-open.png"
+            alt=""
+          />
         </div>
       </div>
       <div class="w-full mt-14">
@@ -144,6 +155,8 @@ export default {
   components: { BaseButton },
   data() {
     return {
+      open: false,
+      openc: false,
       loading: false,
       form: {
         firstName: "",
