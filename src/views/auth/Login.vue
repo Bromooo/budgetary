@@ -12,6 +12,7 @@
           justify-between
           flex-wrap
         "
+        @submit.prevent="login"
       >
         <div class="w-full">
           <label
@@ -27,6 +28,7 @@
             class="border border-grey-30 rounded-xl w-full py-4 px-6"
             type="email"
             placeholder="example@domain.com"
+            v-model="form.email"
           />
         </div>
         <div class="w-full">
@@ -53,24 +55,18 @@
               gap-2
             "
           >
-            <input type="password" class="w-full" placeholder="Password" />
+            <input
+              v-model="form.password"
+              type="password"
+              class="w-full"
+              placeholder="Password"
+            />
             <img src="@/assets/icons/png/eye-open.png" alt="" />
           </div>
         </div>
 
         <div class="w-full mt-14">
-          <input
-            type="submit"
-            value="Log in"
-            class="
-              w-full
-              bg-primary-blue
-              text-white text-[1.375rem]
-              font-medium
-              py-4
-              rounded-xl
-            "
-          />
+          <base-button :isLoading="loading" type="submit">Log in</base-button>
         </div>
       </form>
     </div>
@@ -78,7 +74,57 @@
 </template>
 
 <script>
-export default {};
+import BaseButton from "@/components/BaseButton.vue";
+export default {
+  components: { BaseButton },
+  data() {
+    return {
+      loading: false,
+      form: {
+        email: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    login() {
+      if (!this.form.email) {
+        return this.$toast.warning("Email address is required");
+      }
+      if (
+        !this.form.email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)
+      ) {
+        return this.$toast.warning("Invalid email address provided");
+      }
+      if (!this.form.password.length) {
+        return this.$toast.warning("Password is required");
+      }
+      this.loading = true;
+      this.$store
+        .dispatch("authRequest", {
+          path: "auth/login",
+          data: this.form,
+        })
+        .then((resp) => {
+          if (resp.status === 200) {
+            localStorage.setItem("token", resp.data.token);
+            this.$store.commit("setUser", resp.data);
+            this.$toast.success("User signed in successfully!");
+          } else {
+            this.$toast.warning("Something went wrong");
+          }
+          this.loading = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.response) {
+            this.$toast.error(err.response.data.error.msg);
+          }
+          this.loading = false;
+        });
+    },
+  },
+};
 </script>
 
 <style>

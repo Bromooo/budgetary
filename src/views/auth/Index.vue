@@ -24,36 +24,48 @@
       </div>
       <div class="w-full lg:w-8/12 h-full">
         <div class="w-full flex items-center justify-center h-full">
-          <div class="p-8 bg-white w-[70%] xl:w-[55%] rounded-3xl">
-            <div class="w-full">
-              <img src="@/assets/icons/svg/logo.svg" alt="" class="mx-auto" />
-            </div>
-            <div
-              class="
-                w-full
-                rounded-xl
-                flex
-                items-stretch
-                bg-grey-10
-                text-primary-blue text-center
-                font-semibold
-                text-lg
-                overflow-hidden
-                my-8
-              "
-            >
-              <router-link
-                class="block w-full py-4"
-                :to="{ name: 'auth.register' }"
-                >Sign up</router-link
+          <div
+            class="
+              md:p-8
+              p-6
+              bg-white
+              w-[90%]
+              md:w-[70%]
+              xl:w-[55%]
+              rounded-3xl
+            "
+          >
+            <div class="max-h-[90vh] overflow-y-auto w-full">
+              <div class="w-full">
+                <img src="@/assets/icons/svg/logo.svg" alt="" class="mx-auto" />
+              </div>
+              <div
+                class="
+                  w-full
+                  rounded-xl
+                  flex
+                  items-stretch
+                  bg-grey-10
+                  text-primary-blue text-center
+                  font-semibold
+                  text-lg
+                  overflow-hidden
+                  my-8
+                "
               >
-              <router-link
-                class="block w-full py-4"
-                :to="{ name: 'auth.login' }"
-                >Log in</router-link
-              >
+                <router-link
+                  class="block w-full py-4"
+                  :to="{ name: 'auth.register' }"
+                  >Sign up</router-link
+                >
+                <router-link
+                  class="block w-full py-4"
+                  :to="{ name: 'auth.login' }"
+                  >Log in</router-link
+                >
+              </div>
+              <router-view />
             </div>
-            <router-view />
           </div>
         </div>
       </div>
