@@ -108,8 +108,13 @@ export default {
         .then((resp) => {
           if (resp.status === 200) {
             localStorage.setItem("token", resp.data.token);
+            this.$store.commit("setToken", resp.data.token);
             this.$store.commit("setUser", resp.data);
             this.$toast.success("User signed in successfully!");
+            setTimeout(() => {
+              // console.log("Pushing");
+              location.reload();
+            }, 1000);
           } else {
             this.$toast.warning("Something went wrong");
           }

@@ -3,11 +3,12 @@ import HomeView from '../views/HomeView.vue'
 import AuthIndex from "@/views/auth/Index.vue"
 import Login from "@/views/auth/Login.vue"
 import Register from "@/views/auth/Register.vue"
+import store from '@/store'
 
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'dashboard',
     component: HomeView,
     meta: {
       authRequired: true
@@ -38,9 +39,10 @@ const router = createRouter({
 })
 
 router.beforeEach((a, b) => {
-  // console.log(a);
-  if (a.meta.authRequired) {
+  if (a.meta.authRequired && !store.getters.isLoggedIn) {
     router.push({ name: "auth.login" })
+  } else if (!a.meta.authRequired && store.getters.isLoggedIn) {
+    router.push({ name: "dashboard" })
   }
 })
 

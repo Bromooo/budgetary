@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import axios from '@/axios';
+import router from '@/router';
 export default createStore({
   state: {
     token: localStorage.getItem("token") || "",
@@ -15,12 +16,18 @@ export default createStore({
       state.token = token;
     },
     setUser(state, data) {
-      state.user = {
+      var user = {
         firstName: data.userFirstName,
         lastName: data.userLastName,
         email: data.userEmail,
       };
+      localStorage.setItem('user', JSON.stringify(user))
+      state.user = user;
     },
+    logout(state) {
+      state.user = "";
+      state.token = "";
+    }
   },
   actions: {
     authRequest({ commit, dispatch, getters }, payload) {
@@ -159,6 +166,7 @@ export default createStore({
       commit("logout");
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      router.push({ name: 'auth.login' });
       delete axios.defaults.headers.common["Authorization"];
       return Promise.resolve();
     },
