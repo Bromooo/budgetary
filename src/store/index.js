@@ -109,6 +109,35 @@ export default createStore({
           });
       });
     },
+    patchRequest({ commit, dispatch, getters }, payload) {
+      return new Promise((resolve, reject) => {
+        const token = getters.token;
+        axios({
+          url: `api/v1/${payload.path}`,
+          data: payload.data,
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+          .then(resp => {
+            resolve(resp);
+          })
+          .catch(err => {
+            if (err.response) {
+              if (err.response.status === 401) {
+                dispatch('logout').then(() => {
+                  location.href = "/auth/login?r=auth";
+                });
+              } else {
+                reject(err)
+              }
+            } else {
+              reject(err);
+            }
+          });
+      });
+    },
     postRequest({ commit, dispatch, getters }, payload) {
       return new Promise((resolve, reject) => {
         const token = getters.token;
