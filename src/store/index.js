@@ -5,15 +5,20 @@ export default createStore({
   state: {
     token: localStorage.getItem("token") || "",
     user: JSON.parse(localStorage.getItem("user")) || "",
+    balance: null,
   },
   getters: {
     isLoggedIn: state => !!state.token,
     token: state => state.token,
     user: state => state.user,
+    balance: state => state.balance,
   },
   mutations: {
     setToken(state, token) {
       state.token = token;
+    },
+    setBalance(state, balance) {
+      state.balance = balance;
     },
     setUser(state, data) {
       var user = {
@@ -51,10 +56,10 @@ export default createStore({
         const token = getters.token;
 
         axios({
-          url: `${payload.path}`,
+          url: `api/v1/${payload.path}`,
           method: "DELETE",
           headers: {
-            Authorization: `bearer ${token}`
+            Authorization: `Bearer ${token}`
           }
         })
           .then(resp => {
@@ -64,7 +69,7 @@ export default createStore({
             if (err.response) {
               if (err.response.status === 401) {
                 dispatch('logout').then(() => {
-                  location.href = "/login?r=auth";
+                  location.href = "/auth/login?r=auth";
                 });
               } else {
                 reject(err)
@@ -79,11 +84,11 @@ export default createStore({
       return new Promise((resolve, reject) => {
         const token = getters.token;
         axios({
-          url: payload.path,
+          url: `api/v1/${payload.path}`,
           data: payload.data,
           method: "PUT",
           headers: {
-            Authorization: `bearer ${token}`
+            Authorization: `Bearer ${token}`
           }
         })
           .then(resp => {
@@ -93,7 +98,7 @@ export default createStore({
             if (err.response) {
               if (err.response.status === 401) {
                 dispatch('logout').then(() => {
-                  location.href = "/login?r=auth";
+                  location.href = "/auth/login?r=auth";
                 });
               } else {
                 reject(err)
@@ -108,11 +113,11 @@ export default createStore({
       return new Promise((resolve, reject) => {
         const token = getters.token;
         axios({
-          url: payload.path,
+          url: `api/v1/${payload.path}`,
           data: payload.data,
           method: "POST",
           headers: {
-            Authorization: `bearer ${token}`
+            Authorization: `Bearer ${token}`
           }
         })
           .then(resp => {
@@ -122,7 +127,7 @@ export default createStore({
             if (err.response) {
               if (err.response.status === 401) {
                 dispatch('logout').then(() => {
-                  location.href = "/login?r=auth";
+                  location.href = "/auth/login?r=auth";
                 });
               } else {
                 reject(err)
@@ -138,10 +143,10 @@ export default createStore({
         const token = getters.token;
 
         axios({
-          url: `${payload.path}`,
+          url: `api/v1/${payload.path}`,
           method: "GET",
           headers: {
-            Authorization: `bearer ${token}`
+            Authorization: `Bearer ${token}`
           }
         })
           .then(resp => {
@@ -151,7 +156,7 @@ export default createStore({
             if (err.response) {
               if (err.response.status === 401) {
                 dispatch('logout').then(() => {
-                  location.href = "/login?r=auth";
+                  location.href = "/auth/login?r=auth";
                 });
               } else {
                 reject(err)
