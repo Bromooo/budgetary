@@ -189,8 +189,8 @@ export default {
     return {
       amount: "",
       adding: false,
-      loading: false,
-      showModal: true,
+      loading: true,
+      showModal: false,
     };
   },
   components: {
