@@ -6,12 +6,23 @@ export default createStore({
     token: localStorage.getItem("token") || "",
     user: JSON.parse(localStorage.getItem("user")) || "",
     balance: null,
+    categories: JSON.parse(localStorage.getItem("categories")) || [
+      "Family",
+      "Bills",
+      "Food",
+      "Entertainment",
+      "Transport",
+      "Shopping",
+      "Health",
+      "Holidays",
+    ],
   },
   getters: {
     isLoggedIn: state => !!state.token,
     token: state => state.token,
     user: state => state.user,
     balance: state => state.balance,
+    categories: state => state.categories.sort(),
   },
   mutations: {
     setToken(state, token) {
@@ -28,6 +39,16 @@ export default createStore({
       };
       localStorage.setItem('user', JSON.stringify(user))
       state.user = user;
+    },
+    setCategories(state, data) {
+      var cats = state.categories
+      for (let item of data) {
+        if (!cats.includes(item)) {
+          cats.push(item);
+        }
+      }
+      localStorage.setItem('categories', JSON.stringify(cats))
+      state.categories = cats;
     },
     logout(state) {
       state.user = "";

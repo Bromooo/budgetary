@@ -31,11 +31,22 @@ label,
 input {
   @apply font-open-sans;
 }
-input {
+input,
+select {
   outline: none;
 }
 input[type="submit"] {
   @apply cursor-pointer;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 *::-webkit-scrollbar {
   width: 3px;
