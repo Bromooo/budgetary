@@ -4,7 +4,7 @@ import router from '@/router';
 export default createStore({
   state: {
     token: localStorage.getItem("token") || "",
-    user: '',
+    user: JSON.parse(localStorage.getItem("user")) || "",
   },
   getters: {
     isLoggedIn: state => !!state.token,

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import IndexView from '../views/Index.vue'
 import HomeView from '../views/HomeView.vue'
 import AuthIndex from "@/views/auth/Index.vue"
 import Login from "@/views/auth/Login.vue"
@@ -8,11 +9,21 @@ import store from '@/store'
 const routes = [
   {
     path: '/',
-    name: 'dashboard',
-    component: HomeView,
+    name: '',
+    component: IndexView,
     meta: {
       authRequired: true
-    }
+    },
+    children: [
+      {
+        path: '',
+        name: 'dashboard',
+        component: HomeView,
+        meta: {
+          authRequired: true
+        },
+      }
+    ]
   },
   {
     path: '/auth',
