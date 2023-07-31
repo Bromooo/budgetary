@@ -122,7 +122,7 @@ export default {
   components: { AutoButton },
   data() {
     return {
-      showModal: true,
+      showModal: false,
       opening: false,
       adding: false,
       newCat: false,
