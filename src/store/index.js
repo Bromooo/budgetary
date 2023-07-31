@@ -39,6 +39,16 @@ export default createStore({
       };
       localStorage.setItem('user', JSON.stringify(user))
       state.user = user;
+      // state.categories = [
+      //   "Family",
+      //   "Bills",
+      //   "Food",
+      //   "Entertainment",
+      //   "Transport",
+      //   "Shopping",
+      //   "Health",
+      //   "Holidays",
+      // ];
     },
     setCategories(state, data) {
       var cats = state.categories
@@ -53,6 +63,7 @@ export default createStore({
     logout(state) {
       state.user = "";
       state.token = "";
+      state.categories = [];
     }
   },
   actions: {
@@ -221,6 +232,7 @@ export default createStore({
       commit("logout");
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      localStorage.removeItem("categories");
       router.push({ name: 'auth.login' });
       delete axios.defaults.headers.common["Authorization"];
       return Promise.resolve();

@@ -7,6 +7,9 @@
             <img src="@/assets/icons/svg/logo.svg" alt="" />
           </router-link>
           <div class="flex items-center justify-between gap-6">
+            <auto-outline-button @click="$store.dispatch('logout')"
+              >Logout</auto-outline-button
+            >
             <auto-button :isLoading="opening">
               <span @click="openModal">Add Expense</span>
               <span>
@@ -118,8 +121,9 @@
 
 <script>
 import AutoButton from "@/components/AutoButton.vue";
+import AutoOutlineButton from "@/components/AutoOutlineButton.vue";
 export default {
-  components: { AutoButton },
+  components: { AutoButton, AutoOutlineButton },
   data() {
     return {
       showModal: false,

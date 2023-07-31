@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import AuthIndex from "@/views/auth/Index.vue"
 import Login from "@/views/auth/Login.vue"
 import Register from "@/views/auth/Register.vue"
+import Goals from "@/views/Goals.vue"
 import store from '@/store'
 
 const routes = [
@@ -19,6 +20,14 @@ const routes = [
         path: '',
         name: 'dashboard',
         component: HomeView,
+        meta: {
+          authRequired: true
+        },
+      },
+      {
+        path: 'goals',
+        name: 'goals',
+        component: Goals,
         meta: {
           authRequired: true
         },

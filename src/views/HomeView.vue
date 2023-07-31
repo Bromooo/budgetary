@@ -27,7 +27,10 @@
             Real-time updates keep users on track with spending and budgets.
           </h5>
         </div>
-        <div>
+        <div class="flex items-center justify-between gap-4">
+          <router-link :to="{ name: 'goals' }">
+            <auto-outline-button>Goals</auto-outline-button>
+          </router-link>
           <auto-outline-button @click="showModal = true">
             <span>Add Income</span>
             <span>
@@ -129,7 +132,7 @@
           items-center
           justify-center
         "
-        @click="closeModal"
+        @click.self="showModal = false"
       >
         <div class="max-w-xl">
           <div class="modal min-w-[330px] p-6 bg-white rounded-xl">
