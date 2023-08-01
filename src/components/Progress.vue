@@ -1,20 +1,30 @@
 <template>
   <div class="progress-bar w-full bg-grey-10 h-[0.625rem] rounded-[0.625rem]">
     <div
-      class="bg-primary-blue rounded-[0.625rem] progress-bar-fill"
-      :style="{ width: `${progress}%` }"
+      class="bg-primary-blue rounded-[0.625rem] progress-bar-fill w-0"
+      :style="{ width: `${wdth}%` }"
     ></div>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      wdth: 0,
+    };
+  },
   props: {
     progress: {
       type: Number,
       required: true,
       validator: (value) => value >= 0 && value <= 100,
     },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.wdth = this.progress;
+    }, 100);
   },
 };
 </script>
@@ -31,6 +41,7 @@ export default {
 
 .progress-bar-fill {
   height: 100%;
+  transition: all 1.5s ease-out;
   /* background-color: #4caf50; */
   /* border-radius: 4px; */
 }
