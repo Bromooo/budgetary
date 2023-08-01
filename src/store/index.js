@@ -6,6 +6,7 @@ export default createStore({
     token: localStorage.getItem("token") || "",
     user: JSON.parse(localStorage.getItem("user")) || "",
     balance: null,
+    expense: null,
     categories: JSON.parse(localStorage.getItem("categories")) || [
       "Family",
       "Bills",
@@ -22,6 +23,7 @@ export default createStore({
     token: state => state.token,
     user: state => state.user,
     balance: state => state.balance,
+    expense: state => state.expense,
     categories: state => state.categories.sort(),
   },
   mutations: {
@@ -30,6 +32,9 @@ export default createStore({
     },
     setBalance(state, balance) {
       state.balance = balance;
+    },
+    setExpense(state, expense) {
+      state.expense = expense;
     },
     setUser(state, data) {
       var user = {

@@ -220,10 +220,12 @@ export default {
       await this.$store
         .dispatch("getRequest", { path: "expenses/getExpensesAmount" })
         .then((resp) => {
+          // console.log(resp);
           this.$store.commit(
             "setCategories",
             Object.keys(resp.data.expensesByCategory)
           );
+          this.$store.commit("setExpense", resp.data.totalExpensesAmount);
         });
     },
   },
