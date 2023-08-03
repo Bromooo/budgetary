@@ -23,7 +23,7 @@
           <h6 class="text-grey-50 text-sm font-poppins font-semibold">
             {{ getGreeting() }} {{ $store.getters.user.firstName }}!
           </h6>
-          <h5 class="font-poppins text-2xl font-medium text-grey-90 mt-1">
+          <h5 class="font-poppins lg:text-2xl text-lg font-medium text-grey-90 mt-1">
             Real-time updates keep users on track with spending and budgets.
           </h5>
         </div>
@@ -91,6 +91,9 @@
           </router-link>
         </div>
       </div>
+    </card>
+    <card>
+      <chart />
     </card>
     <card>
       <div class="w-full flex justify-end pb-4 border-b border-b-grey-20">
@@ -293,6 +296,7 @@ import Progress from "@/components/Progress.vue";
 import Loading from "@/components/Loading.vue";
 import BaseButton from "@/components/BaseButton.vue";
 import AutoButton from "@/components/AutoButton.vue";
+import Chart from "@/components/Chart.vue";
 // @ is an alias to /src
 
 export default {
@@ -346,6 +350,7 @@ export default {
     Loading,
     BaseButton,
     AutoButton,
+    Chart,
   },
   mounted() {
     this.getBalance();

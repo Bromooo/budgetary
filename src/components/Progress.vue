@@ -1,5 +1,5 @@
 <template>
-  <div class="progress-bar w-full bg-grey-10 h-[0.625rem] rounded-[0.625rem]">
+  <div class="progress-bar w-full bg-opacity-10 h-[0.625rem] rounded-[0.625rem]" :class="[getColor]">
     <div
       class="rounded-[0.625rem] progress-bar-fill w-0"
       :class="[getColor]"
