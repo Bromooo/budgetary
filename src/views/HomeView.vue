@@ -441,7 +441,7 @@ export default {
         })
         .then(async (resp) => {
           if (resp.data) {
-            console.log(resp);
+            // console.log(resp);
             var message = resp.data.message;
             await this.getBudgets();
             this.$toast.success(message);
