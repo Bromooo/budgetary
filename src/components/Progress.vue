@@ -1,7 +1,8 @@
 <template>
   <div class="progress-bar w-full bg-grey-10 h-[0.625rem] rounded-[0.625rem]">
     <div
-      class="bg-primary-blue rounded-[0.625rem] progress-bar-fill w-0"
+      class="rounded-[0.625rem] progress-bar-fill w-0"
+      :class="[getColor]"
       :style="{ width: `${wdth}%` }"
     ></div>
   </div>
@@ -18,13 +19,49 @@ export default {
     progress: {
       type: Number,
       required: true,
-      validator: (value) => value >= 0 && value <= 100,
+      // validator: (value) => value >= 0 && value <= 100,
     },
   },
   mounted() {
     setTimeout(() => {
+      // console.log(this.progress);
       this.wdth = this.progress;
     }, 100);
+  },
+  watch: {
+    progress() {
+      // console.log(this.progress);
+      this.wdth = this.progress;
+    },
+  },
+  computed: {
+    getColor() {
+      // var percentage = this.getPercentage(spent, budget);
+      // Ensure the percentage is within the range [0, 100]
+      this.wdth = Math.min(Math.max(this.wdth, 0), 100);
+
+      // Define the color thresholds and corresponding colors
+      const thresholds = [25, 50, 75];
+      const colors = [
+        "bg-green-50",
+        "bg-yellow-400",
+        "bg-orange-400",
+        "bg-red-50",
+      ];
+
+      // Determine the color index based on the this.wdth
+      let colorIndex = 0;
+      for (let i = 0; i < thresholds.length; i++) {
+        if (this.wdth >= thresholds[i]) {
+          colorIndex = i + 1;
+        } else {
+          break;
+        }
+      }
+
+      // Return the color based on the color index
+      return colors[colorIndex];
+    },
   },
 };
 </script>

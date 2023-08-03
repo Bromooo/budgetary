@@ -223,7 +223,7 @@ export default {
           // console.log(resp);
           this.$store.commit(
             "setCategories",
-            Object.keys(resp.data.expensesByCategory)
+            Object.keys(resp.data.categories)
           );
           this.$store.commit("setExpense", resp.data.totalExpensesAmount);
         });
