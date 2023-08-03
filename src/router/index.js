@@ -5,6 +5,7 @@ import AuthIndex from "@/views/auth/Index.vue"
 import Login from "@/views/auth/Login.vue"
 import Register from "@/views/auth/Register.vue"
 import Goals from "@/views/Goals.vue"
+import Report from "@/views/Report.vue"
 import store from '@/store'
 
 const routes = [
@@ -28,6 +29,14 @@ const routes = [
         path: 'goals',
         name: 'goals',
         component: Goals,
+        meta: {
+          authRequired: true
+        },
+      },
+      {
+        path: 'report',
+        name: 'report',
+        component: Report,
         meta: {
           authRequired: true
         },

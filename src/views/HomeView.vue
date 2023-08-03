@@ -60,18 +60,6 @@
           </h1>
         </div>
         <div class="lg:w-5/12 w-full flex gap-6 flex-col">
-          <!-- <div class="w-full py-3 px-6 rounded-xl border-2 border-green-10">
-            <span class="flex">
-              <span class="font-poppins leading-7 text-sm text-green-30"
-                >Income</span
-              ><span>
-                <img src="@/assets/icons/svg/income.svg" alt="" />
-              </span>
-            </span>
-            <h2 class="text-green-50 font-poppins text-xl font-semibold">
-              ₦500,000
-            </h2>
-          </div> -->
           <div class="w-full py-3 px-6 rounded-xl border-2 border-red-10">
             <span class="flex">
               <span class="font-poppins text-sm text-red-30 leading-7"
@@ -84,6 +72,23 @@
               {{ $numberFormat($store.getters.expense) }}
             </h2>
           </div>
+          <!-- <div class="w-full py-3 px-6 rounded-xl border-2 border-green-10">
+          <span class="flex">
+            <span class="font-poppins leading-7 text-sm text-green-30"
+              >Income</span
+            ><span>
+              <img src="@/assets/icons/svg/income.svg" alt="" />
+            </span>
+          </span>
+          <h2 class="text-green-50 font-poppins text-xl font-semibold">
+            ₦500,000
+          </h2>
+        </div> -->
+          <router-link :to="{ name: 'report' }">
+            <auto-outline-button class="w-full"
+              >Generate Report</auto-outline-button
+            >
+          </router-link>
         </div>
       </div>
     </card>
@@ -399,9 +404,9 @@ export default {
         });
     },
     async openBudgetModal() {
-      this.opening = true;
+      this.bopening = true;
       await this.getCategories();
-      this.opening = false;
+      this.bopening = false;
       this.budgetShowModal = true;
     },
     capitalizeFirstLetter(inputString) {

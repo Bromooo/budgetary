@@ -38,7 +38,8 @@ const formatDate = (date) => {
     }
   }
 
-  const formattedDate = `${addDaySuffix(day)} ${month} ${year} - ${hour}:${minute}`;
+  const formattedDate = `${addDaySuffix(day)} ${month} ${year} `;
+  // - ${hour}:${minute}
   return formattedDate;
 }
 
