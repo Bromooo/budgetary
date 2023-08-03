@@ -55,7 +55,7 @@
           <h6 class="text-grey-50 text-base font-poppins font-medium">
             Current Balance
           </h6>
-          <h1 class="text-grey-80 font-poppins text-[2.5rem] font-semibold">
+          <h1 class="text-grey-80 font-poppins lg:text-[2.5rem] text-2xl font-semibold">
             ₦{{ formatNumberWithCommas($store.getters.balance) }}
           </h1>
         </div>
