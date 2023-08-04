@@ -1,11 +1,15 @@
 <template>
   <loading v-if="!chartData" />
-  <div v-else>
-    <h2 class="mb-4 font-poppins text-lg font-medium text-grey-50">Expense chart</h2>
-    <div class="h-[22vh]" >
-      <Line :data="chartDataSet" :options="options" />
+  <card v-if="chartData && chartDataSet.datasets.length">
+    <div>
+      <h2 class="mb-4 font-poppins text-lg font-medium text-grey-50">
+        Expense chart
+      </h2>
+      <div class="h-[22vh]">
+        <Line :data="chartDataSet" :options="options" />
+      </div>
     </div>
-  </div>
+  </card>
 </template>
 
 <script>
@@ -21,6 +25,7 @@ import {
 } from "chart.js";
 import { Line } from "vue-chartjs";
 import Loading from "./Loading.vue";
+import Card from "./Card.vue";
 
 ChartJS.register(
   CategoryScale,
@@ -48,10 +53,19 @@ export default {
     chartDataSet() {
       return this.transformData(this.chartData);
     },
+    balance() {
+      return this.$store.getters.balance;
+    },
+  },
+  watch: {
+    balance() {
+      this.getChartData();
+    },
   },
   components: {
     Line,
     Loading,
+    Card,
   },
   methods: {
     transformData(input) {
@@ -75,11 +89,12 @@ export default {
       for (const key of datasetKeys) {
         dataArrays[key] = new Array(labels.length).fill(0);
       }
-
+      // console.log(dataArrays);
+      // return null
       // Populate data arrays
       for (let i = 0; i < labels.length; i++) {
         for (const [key, value] of Object.entries(input[labels[i]])) {
-          dataArrays[key][i] = value;
+          dataArrays[key][i + 1] = value;
         }
       }
 
@@ -104,8 +119,10 @@ export default {
       }
       // console.log(dataset);
       // Return the final format
+      const myLabels = ["", ...labels];
+      // console.log(myLabels);
       return {
-        labels: labels,
+        labels: myLabels,
         datasets: dataset,
       };
     },

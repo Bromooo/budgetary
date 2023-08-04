@@ -22,6 +22,13 @@
     </header>
     <div class="max-w-xl mx-auto w-full">
       <div class="w-[90%] mx-auto">
+        <div class="w-full mb-4" v-if="routeName !== 'dashboard'">
+          <span
+            @click="goBack"
+            class="text-sm cursor-pointer hover:underline text-grey-70"
+            >Go back</span
+          >
+        </div>
         <router-view />
       </div>
     </div>
@@ -138,9 +145,9 @@ export default {
     };
   },
   computed: {
-    // newCat() {
-    //   return this.form.category === "new_cat";
-    // },
+    routeName() {
+      return this.$route.name;
+    },
   },
   watch: {
     form: {
@@ -155,8 +162,12 @@ export default {
   },
   mounted() {
     this.getCategories();
+    // console.log(this.routeName);
   },
   methods: {
+    goBack() {
+      window.history.back();
+    },
     async openModal() {
       this.opening = true;
       await this.getCategories();

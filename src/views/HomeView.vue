@@ -23,7 +23,16 @@
           <h6 class="text-grey-50 text-sm font-poppins font-semibold">
             {{ getGreeting() }} {{ $store.getters.user.firstName }}!
           </h6>
-          <h5 class="font-poppins lg:text-2xl text-lg font-medium text-grey-90 mt-1">
+          <h5
+            class="
+              font-poppins
+              lg:text-2xl
+              text-lg
+              font-medium
+              text-grey-90
+              mt-1
+            "
+          >
             Real-time updates keep users on track with spending and budgets.
           </h5>
         </div>
@@ -55,7 +64,15 @@
           <h6 class="text-grey-50 text-base font-poppins font-medium">
             Current Balance
           </h6>
-          <h1 class="text-grey-80 font-poppins lg:text-[2.5rem] text-2xl font-semibold">
+          <h1
+            class="
+              text-grey-80
+              font-poppins
+              lg:text-[2.5rem]
+              text-2xl
+              font-semibold
+            "
+          >
             ₦{{ formatNumberWithCommas($store.getters.balance) }}
           </h1>
         </div>
@@ -92,19 +109,20 @@
         </div>
       </div>
     </card>
-    <card>
-      <chart />
-    </card>
+
+    <chart />
+
     <card>
       <div class="w-full flex justify-end pb-4 border-b border-b-grey-20">
         <auto-button :isLoading="bopening" @click="openBudgetModal">
           Create Budget
         </auto-button>
       </div>
+
       <loading v-if="bloading" />
       <div
         v-else
-        class="w-full py-2 border-b border-b-grey-20"
+        class="w-full py-6 border-b border-b-grey-20"
         v-for="budget in budgets"
         :key="budget._id"
       >
@@ -144,6 +162,12 @@
           :progress="getPercentage(spent[budget.category], budget.budgetAmount)"
         />
       </div>
+      <p
+        class="text-center text-grey-50 font-semibold mt-8 text-sm"
+        v-if="!bloading && !budgets.length"
+      >
+        You have no budget you're tracking yet
+      </p>
     </card>
     <transition name="modal-fade" appear>
       <div
@@ -385,6 +409,7 @@ export default {
       return colors[colorIndex];
     },
     async getBudgets() {
+      this.bloading = true;
       await this.$store
         .dispatch("getRequest", { path: "budget" })
         .then((resp) => {
